@@ -26,4 +26,4 @@ before_script:
 script: cmake --build .
 
 after_success:
-  - ctest .
+  - ctest -D Experimental
