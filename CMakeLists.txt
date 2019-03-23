@@ -25,4 +25,9 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 find_package(GTest REQUIRED)
 
+include(FindPythonInterp)
+add_test(NAME PythonTest 
+COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/python/unit_test.py 
+WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH} )
+
 add_subdirectory(c++)

@@ -15,7 +15,7 @@ set(TARGETNAME agent)
 set(${TARGETNAME}_INC_DIR ${PROJECT_SOURCE_DIR}/include/${TARGETNAME})
 
 set(Python_ADDITIONAL_VERSIONS 3.6)
-find_package(Python3 COMPONENTS Interpreter Development)
+find_package(Python3 COMPONENTS Development)
  
 include_directories(
                    ${${TARGETNAME}_INC_DIR}
