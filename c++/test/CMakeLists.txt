@@ -37,6 +37,7 @@ add_custom_command(TARGET gcov
     COMMAND gcov ${CMAKE_CURRENT_BINARY_DIR}/main.gnco
     COMMAND lcov --capture --directory ${CMAKE_CURRENT_BINARY_DIR} --output-file lcovoutput.info
     COMMAND genhtml lcovoutput.info --output-directory ${CMAKE_BINARY_DIR}/code_coverage
+    COMMAND cp lcovoutput.info ${CMAKE_BINARY_DIR}
 )
 
 add_dependencies(gcov ${TARGETNAME})
