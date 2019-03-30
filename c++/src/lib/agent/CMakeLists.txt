@@ -33,7 +33,7 @@ target_link_libraries(${TARGETNAME} ${LINK_LIBS})
 set(PYTHON_FILES
     ${CMAKE_SOURCE_DIR}/python/app.py
     ${CMAKE_SOURCE_DIR}/python/unit_test.py
-    ${CMAKE_SOURCE_DIR}/python/mrbrown/mrbrown.py
+    ${CMAKE_SOURCE_DIR}/python/flask-exagent/flask_exagent.py
 )
 
 add_custom_command(TARGET ${TARGETNAME} POST_BUILD 
