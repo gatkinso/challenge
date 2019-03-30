@@ -13,9 +13,18 @@
   
 language: cpp
 
+sudo: required
+
 os: linux
 
 dist: xenial
+
+env:
+  global:
+    - CTEST_EXT_COLOR_OUTPUT=TRUE
+    - CTEST_BUILD_FLAGS=-j4
+    - CTEST_TARGET_SYSTEM=Linux-gcc
+    - CTEST_MODEL=Nightly
 
 compiler:
   - gcc

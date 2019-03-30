@@ -27,7 +27,7 @@ find_package(GTest REQUIRED)
 
 include(FindPythonInterp)
 add_test(NAME PythonTest 
-    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/staging/unit_test.py 
+    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_BINARY_DIR}/staging/unit_test.py 
     WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH} )
 
 add_subdirectory(c++)

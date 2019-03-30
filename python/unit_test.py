@@ -14,12 +14,10 @@
 
 import sys
 import unittest
-from mrbrown import *
 
 class TestSum(unittest.TestCase):
 
     def test_1(self):
-        browndog = MrBrown
         self.assertEqual(1, 1, "Test 1 Passes")
 
     def test_2(self):
