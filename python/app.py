@@ -1,4 +1,4 @@
-#!env3/bin/python
+#!env/bin/python
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,8 +14,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from flask import Flask, jsonify, abort, request, make_response, url_for
+from flask_exagent import FlaskExagent
 
 app = Flask(__name__, static_url_path = "")
+
+agent = FlaskExagent(app)
 
 @app.errorhandler(400)
 def not_found(error):

@@ -1,3 +1,4 @@
+.vscode
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
@@ -7,6 +8,6 @@ cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
-
+build/
 python/env/
 python/__pycache__/
