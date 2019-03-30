@@ -31,7 +31,7 @@ compiler:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install -y libgtest-dev cmake
+  - sudo apt-get install -y libgtest-dev cmake gcove lcov genhtml
   - sudo wget https://github.com/google/googletest/archive/release-1.8.1.tar.gz
   - sudo tar xf release-1.8.1.tar.gz
   - pushd $(pwd)
