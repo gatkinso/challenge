@@ -30,3 +30,21 @@ add_library(${TARGETNAME} SHARED ${${TARGETNAME}_SOURCES})
 
 target_link_libraries(${TARGETNAME} ${LINK_LIBS})
 
+set(PYTHON_FILES
+    ${CMAKE_SOURCE_DIR}/python/app.py
+    ${CMAKE_SOURCE_DIR}/python/unit_test.py
+    ${CMAKE_SOURCE_DIR}/python/mrbrown/mrbrown.py
+)
+
+add_custom_command(TARGET ${TARGETNAME} POST_BUILD 
+  COMMAND "${CMAKE_COMMAND}" -E copy 
+     "$<TARGET_FILE:${TARGETNAME}>"
+     "${CMAKE_BINARY_DIR}/staging/$<TARGET_FILE_NAME:${TARGETNAME}>"
+  COMMENT "Copying to output directory"
+)
+
+add_custom_command(TARGET ${TARGETNAME} POST_BUILD 
+      COMMAND "${CMAKE_COMMAND}" -E copy ${PYTHON_FILES} ${CMAKE_BINARY_DIR}/staging/
+      COMMENT "Copying Python to output directory"
+)
+

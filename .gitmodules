@@ -1,0 +1,3 @@
+[submodule "python/flask-exagent"]
+	path = python/flask-exagent
+	url = https://github.com/gatkinso/flask-exagent
