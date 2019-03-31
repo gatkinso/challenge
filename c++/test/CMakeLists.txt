@@ -26,3 +26,21 @@ gtest_discover_tests(${TARGETNAME} TEST_PREFIX challenge_generated_tests:)
 
 add_dependencies(${TARGETNAME} agent)
 
+if(GENERATE_COV)
+    add_custom_target(gcov
+        COMMAND mkdir -p coverage
+        COMMAND ${CMAKE_MAKE_PROGRAM} test
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        )  
+
+    add_custom_command(TARGET gcov
+        COMMAND echo "=================== GCOV TEST ===================="
+        COMMAND gcov ${CMAKE_CURRENT_BINARY_DIR}/main.gnco
+        COMMAND lcov --capture --directory ${CMAKE_CURRENT_BINARY_DIR} --output-file lcovoutput.info
+        COMMAND genhtml lcovoutput.info --output-directory ${CMAKE_BINARY_DIR}/code_coverage
+        COMMAND cp lcovoutput.info ${CMAKE_BINARY_DIR}
+    )
+
+    add_dependencies(gcov ${TARGETNAME})
+endif(GENERATE_COV)
+

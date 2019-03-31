@@ -18,6 +18,11 @@ project(challenge)
 include (CTest)
 enable_testing()
 
+if(GENERATE_COV)
+    set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+    set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)  
+endif(GENERATE_COV)
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_STANDARD 99)

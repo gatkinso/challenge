@@ -29,6 +29,10 @@ env:
 compiler:
   - gcc
 
+addons:
+  apt:
+    packages: lcov
+
 before_install:
   - sudo apt-get update
   - sudo apt-get install -y libgtest-dev cmake
@@ -43,9 +47,10 @@ before_install:
 before_script:
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -DGENERATE_COV:BOOL=TRUE ..
 
-script: cmake --build .
+script: cmake --build . --target gcov
 
 after_success:
+  - bash <(curl -s https://codecov.io/bash) -f lcovoutput.info || echo "Codecov did not collect coverage reports"
   - ctest -D Experimental
