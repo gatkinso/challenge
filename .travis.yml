@@ -52,5 +52,5 @@ before_script:
 script: cmake --build . --target gcov
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -f lcovoutput.info || echo "Codecov did not collect coverage reports"
+  - bash <(curl -s https://codecov.io/bash) -f *.info || echo "Codecov did not collect coverage reports"
   - ctest -D Experimental

@@ -47,3 +47,12 @@ add_custom_command(TARGET ${TARGETNAME} POST_BUILD
       COMMAND "${CMAKE_COMMAND}" -E copy ${PYTHON_FILES} ${CMAKE_BINARY_DIR}/staging/
       COMMENT "Copying Python to output directory"
 )
+
+if(GENERATE_COV)
+    add_custom_command(TARGET ${TARGETNAME} POST_BUILD
+        COMMAND echo "=================== GCOV LIB ===================="
+        COMMAND mkdir -p coverage
+        COMMAND gcov ${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.gnco
+        COMMAND lcov --capture --initial --directory ${CMAKE_CURRENT_BINARY_DIR} --output-file ${CMAKE_BINARY_DIR}/lcovoutput-lib.info
+    )
+endif(GENERATE_COV)
