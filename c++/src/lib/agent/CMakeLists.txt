@@ -51,8 +51,10 @@ add_custom_command(TARGET ${TARGETNAME} POST_BUILD
 if(GENERATE_COV)
     add_custom_command(TARGET ${TARGETNAME} POST_BUILD
         COMMAND echo "=================== GCOV LIB ===================="
-        COMMAND mkdir -p coverage
-        COMMAND gcov ${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.gnco
-        COMMAND lcov --capture --initial --directory ${CMAKE_CURRENT_BINARY_DIR} --output-file ${CMAKE_BINARY_DIR}/lcovoutput-lib.info
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/coverage
+        COMMAND gcov ${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.gcno
+        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGETNAME}.dir/*.gcno ${CMAKE_BINARY_DIR}/coverage
+        #COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGETNAME}.dir/*.gcda ${CMAKE_BINARY_DIR}/coverage          
+        COMMAND lcov --capture --initial --directory ${CMAKE_BINARY_DIR}/coverage --output-file ${CMAKE_BINARY_DIR}/coverage/lcovoutput-libagent.info
     )
 endif(GENERATE_COV)
