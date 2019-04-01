@@ -19,7 +19,7 @@ include (CTest)
 enable_testing()
 
 if(GENERATE_COV)
-    set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+    set(CMAKE_CXX_FLAGS "-g -O0 -Wall --coverage")
     set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)  
 endif(GENERATE_COV)
 
