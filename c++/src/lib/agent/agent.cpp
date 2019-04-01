@@ -69,11 +69,13 @@ static PyObject* agent_setcfg(PyObject *self, PyObject *args)
 
 static PyObject* agent_request(PyObject *self, PyObject *args)
 {
+    std::cout << "AGENT REQUEST" << std::endl;
     Py_RETURN_NONE;
 }
 
 static PyObject* agent_response(PyObject *self, PyObject *args)
 {
+    std::cout << "AGENT RESPONSE" << std::endl;
     Py_RETURN_NONE;
 }
 

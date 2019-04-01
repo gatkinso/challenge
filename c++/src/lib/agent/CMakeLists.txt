@@ -39,7 +39,7 @@ set(PYTHON_FILES
 add_custom_command(TARGET ${TARGETNAME} POST_BUILD 
   COMMAND "${CMAKE_COMMAND}" -E copy 
      "$<TARGET_FILE:${TARGETNAME}>"
-     "${CMAKE_BINARY_DIR}/staging/$<TARGET_FILE_NAME:${TARGETNAME}>"
+     "${CMAKE_BINARY_DIR}/staging/${TARGETNAME}.so"
   COMMENT "Copying to output directory"
 )
 
