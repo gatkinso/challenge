@@ -44,9 +44,9 @@ before_install:
   - sudo cmake --build . --target install
   - popd
   - sudo wget https://github.com/protocolbuffers/protobuf/archive/v3.7.1.tar.gz
-  - tar -xzvf protobuf-3.7.1.tar.gz
+  - tar -xzvf v3.7.1.tar.gz
   - pushd 
-  - cd protobuf-3.7.1
+  - cd v3.7.1
   - ./configure
   - make
   - sudo make install
