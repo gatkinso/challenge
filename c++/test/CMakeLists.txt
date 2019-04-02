@@ -43,7 +43,7 @@ if(GENERATE_COV)
         COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGETNAME}.dir/*.gcno ${CMAKE_BINARY_DIR}/coverage
         COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGETNAME}.dir/*.gcda ${CMAKE_BINARY_DIR}/coverage
         COMMAND lcov --capture --directory ${CMAKE_BINARY_DIR}/coverage --output-file ${CMAKE_BINARY_DIR}/coverage/lcovoutput.info
-        COMMAND lcov -a ${CMAKE_BINARY_DIR}/coverage/lcovoutput.info -a ${CMAKE_BINARY_DIR}/coverage/lcovoutput-libagent.info -o ${CMAKE_BINARY_DIR}/challenge.info
+        COMMAND lcov -a ${CMAKE_BINARY_DIR}/coverage/lcovoutput.info -a ${CMAKE_BINARY_DIR}/coverage/lcovoutput-libagent.info -a ${CMAKE_BINARY_DIR}/coverage/lcovoutput-libapm.info -o ${CMAKE_BINARY_DIR}/challenge.info
         COMMAND genhtml ${CMAKE_BINARY_DIR}/challenge.info --output-directory ${CMAKE_BINARY_DIR}/code_coverage
     )
 
