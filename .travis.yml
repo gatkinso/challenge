@@ -46,7 +46,7 @@ before_install:
   - sudo wget https://github.com/protocolbuffers/protobuf/archive/v3.7.1.tar.gz
   - tar -xzvf v3.7.1.tar.gz
   - pushd $(pwd)
-  - cd v3.7.1
+  - cd protobuf-3.7.1
   - ./configure
   - make
   - sudo make install
