@@ -13,14 +13,18 @@
 
 set(TARGETNAME challenge_tests)
 
-include_directories()
+include_directories(
+                ${PROJECT_SOURCE_DIR}/c++/include/apm
+)
+
 add_executable(${TARGETNAME} 
                 main.cpp
+                apm_unit_test.cpp
                 request_unit_test.cpp
                 response_unit_test.cpp
 )
 
-target_link_libraries(${TARGETNAME} GTest::GTest GTest::Main ${PLATFORM_LINK_LIBS})
+target_link_libraries(${TARGETNAME} GTest::GTest GTest::Main ${PLATFORM_LINK_LIBS} apm agent)
 
 gtest_discover_tests(${TARGETNAME} TEST_PREFIX challenge_generated_tests:)
 

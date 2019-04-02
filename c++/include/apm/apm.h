@@ -11,16 +11,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#pragma once
 
-class ResponseUnitTest : public ::testing::Test
+#include <vector>
+#include <string>  
+
+namespace exagent
 {
-protected:
-    ResponseUnitTest() {}
+
+class APM
+{
+public:
+    APM();
+
+    bool process_request();
+    bool process_response();
 };
 
-TEST_F(ResponseUnitTest, Placeholder)
-{
-
 }
+
+

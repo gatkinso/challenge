@@ -20,7 +20,7 @@ protected:
     RequestUnitTest() {}
 };
 
-TEST_F(RequestUnitTest, Instantiate)
+TEST_F(RequestUnitTest, Placeholder)
 {
 
 }

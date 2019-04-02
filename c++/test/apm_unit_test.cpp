@@ -13,14 +13,24 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+#include "apm.h"
 
-class ResponseUnitTest : public ::testing::Test
+using namespace exagent;
+
+class RequestUnitTest : public ::testing::Test
 {
 protected:
-    ResponseUnitTest() {}
+    RequestUnitTest() {}
 };
 
-TEST_F(ResponseUnitTest, Placeholder)
+TEST_F(RequestUnitTest, Instantiate)
 {
+    ASSERT_NO_THROW(APM apm);
+}
 
+TEST_F(RequestUnitTest, process_request)
+{
+    APM apm;
+
+    ASSERT_TRUE(apm.process_request());
 }
