@@ -45,7 +45,7 @@ before_install:
   - popd
   - sudo wget https://github.com/protocolbuffers/protobuf/archive/v3.7.1.tar.gz
   - tar -xzvf v3.7.1.tar.gz
-  - pushd 
+  - pushd $(pwd)
   - cd v3.7.1
   - ./configure
   - make
