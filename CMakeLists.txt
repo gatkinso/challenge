@@ -29,6 +29,8 @@ set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
 find_package(GTest REQUIRED)
+find_package(Protobuf REQUIRED)
+include_directories(${PROTOBUF_INCLUDE_DIRS})
 
 include(FindPythonInterp)
 add_test(NAME PythonTest 

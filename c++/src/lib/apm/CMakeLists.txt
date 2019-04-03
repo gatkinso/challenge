@@ -16,15 +16,18 @@ set(${TARGETNAME}_INC_DIR ${PROJECT_SOURCE_DIR}/c++/include/${TARGETNAME})
 
 include_directories(
                    ${${TARGETNAME}_INC_DIR}
+                   ${PROJECT_BINARY_DIR}/proto/cpp
 )
 
-set(LINK_LIBS )
+set(LINK_LIBS transport)
 set(${TARGETNAME}_SOURCES ${TARGETNAME}.cpp)
 set(BUILD_SHARED_LIBS FALSE)
 
 add_library(${TARGETNAME} STATIC ${${TARGETNAME}_SOURCES})
 
 target_link_libraries(${TARGETNAME} ${LINK_LIBS})
+
+add_dependencies(${TARGETNAME} transport)
 
 if(GENERATE_COV)
     add_custom_command(TARGET ${TARGETNAME} POST_BUILD

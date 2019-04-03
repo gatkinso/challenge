@@ -11,26 +11,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "apm.h"
-#include "transport.pb.h"
+syntax = "proto3";
 
-namespace exagent
+package challenge.transport;
+
+message Transport
 {
-
-APM::APM()
-{
-
-}
-
-bool APM::process_request()
-{
-    challenge::transport::Transport txp;
-    return true;
-}
-
-bool APM::process_response()
-{
-    return true;
-}
-
+    map<string, string> string_values = 100;
+    map<string, int32> int_values     = 200;
+    map<string, bool> bool_values     = 300;
 }
