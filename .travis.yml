@@ -46,11 +46,11 @@ before_install:
   - sudo wget https://github.com/protocolbuffers/protobuf/archive/v3.7.1.tar.gz
   - tar -xzvf v3.7.1.tar.gz
   - pushd $(pwd)
-  - cd protobuf-3.7.1
-  - autoconf
-  - ./configure
-  - make
-  - sudo make install
+  - cd protobuf-3.7.1/
+  - mkdir build
+  - cd build
+  - cmake ../cmake
+  - sudo cmake --build . --target install
   - popd
 
 before_script:
