@@ -14,10 +14,17 @@
 
 import sys
 import unittest
+from google.protobuf.json_format import MessageToJson
+import transport_pb2
 
 class TestSum(unittest.TestCase):
 
     def test_1(self):
+        trans = transport_pb2.Transport()
+        trans.string_values['key'] = 'value'
+        trans.int_values['key1'] = 1
+        emp_string = MessageToJson(trans)
+        print(emp_string)
         self.assertEqual(1, 1, "Test 1 Passes")
 
     def test_2(self):

@@ -42,7 +42,7 @@ foreach(PROTO ${PROTO_FILES})
     )
     #python
     add_custom_command(
-        OUTPUT  ${PROTO_PYTHON_DIR}/${PROTO}.pb.py
+        OUTPUT  ${PROTO_PYTHON_DIR}/${PROTO}_pb2.py
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${PROTO}.proto
         COMMAND ${PROTOBUF_PROTOC_EXECUTABLE}
         ARGS    ${CMAKE_CURRENT_SOURCE_DIR}/${PROTO}.proto
@@ -50,7 +50,7 @@ foreach(PROTO ${PROTO_FILES})
                 --proto_path=${CMAKE_CURRENT_SOURCE_DIR}
     )
     set(PROTOPY_RESULTS ${PROTOPY_RESULTS}
-        ${PROTO_PYTHON_DIR}/${PROTO}.pb.py
+        ${PROTO_PYTHON_DIR}/${PROTO}_pb2.py
     )
 endforeach(PROTO)
 
@@ -63,3 +63,8 @@ if(MSVC)
 endif(MSVC)
 
 target_link_libraries(${TARGETNAME} ${PROTOBUF_LIBRARIES})
+
+add_custom_command(TARGET ${TARGETNAME} POST_BUILD 
+      COMMAND "${CMAKE_COMMAND}" -E copy ${PROTOPY_RESULTS} ${CMAKE_BINARY_DIR}/staging/
+      COMMENT "Copying Generated Python to output directory"
+)

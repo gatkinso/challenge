@@ -10,57 +10,63 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  
-language: cpp
 
-sudo: required
+matrix:
+  include:
+    -language: python
+      python:
+        - "3.6"
+        - "3.6-dev"  # 3.6 development branch
+      install:
+        - pip install -r requirements.txt
 
-os: linux
+    -language: cpp
+      sudo: required
+      os: linux
+      dist: xenial
 
-dist: xenial
+      env:
+        global:
+          - CTEST_EXT_COLOR_OUTPUT=TRUE
+          - CTEST_BUILD_FLAGS=-j4
+          - CTEST_TARGET_SYSTEM=Linux-gcc
+          - CTEST_MODEL=Nightly
 
-env:
-  global:
-    - CTEST_EXT_COLOR_OUTPUT=TRUE
-    - CTEST_BUILD_FLAGS=-j4
-    - CTEST_TARGET_SYSTEM=Linux-gcc
-    - CTEST_MODEL=Nightly
+      compiler:
+        - gcc
 
-compiler:
-  - gcc
+      addons:
+        apt:
+          packages: lcov
 
-addons:
-  apt:
-    packages: lcov
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get install -y libgtest-dev cmake
+        - wget https://github.com/google/googletest/archive/release-1.8.1.tar.gz
+        - tar xf release-1.8.1.tar.gz
+        - pushd $(pwd)
+        - cd googletest-release-1.8.1
+        - cmake -DBUILD_SHARED_LIBS=ON .
+        - sudo cmake --build . --target install
+        - popd
+        - sudo wget https://github.com/protocolbuffers/protobuf/archive/v3.7.1.tar.gz
+        - tar -xzvf v3.7.1.tar.gz
+        - pushd $(pwd)
+        - cd protobuf-3.7.1/
+        - mkdir build
+        - cd build
+        - cmake -Dprotobuf_BUILD_TESTS=OFF ../cmake
+        - sudo cmake --build . --target install
+        - popd
 
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install -y libgtest-dev cmake
-  - wget https://github.com/google/googletest/archive/release-1.8.1.tar.gz
-  - tar xf release-1.8.1.tar.gz
-  - pushd $(pwd)
-  - cd googletest-release-1.8.1
-  - cmake -DBUILD_SHARED_LIBS=ON .
-  - sudo cmake --build . --target install
-  - popd
-  - sudo wget https://github.com/protocolbuffers/protobuf/archive/v3.7.1.tar.gz
-  - tar -xzvf v3.7.1.tar.gz
-  - pushd $(pwd)
-  - cd protobuf-3.7.1/
-  - mkdir build
-  - cd build
-  - cmake -Dprotobuf_BUILD_TESTS=OFF ../cmake
-  - sudo cmake --build . --target install
-  - popd
+      before_script:
+        - mkdir build
+        - cd build
+        - cmake -DGENERATE_COV:BOOL=TRUE ..
 
-before_script:
-  - mkdir build
-  - cd build
-  - cmake -DGENERATE_COV:BOOL=TRUE ..
+      script: cmake --build . --target gcov
 
-script: cmake --build . --target gcov
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash) -f challenge.info || echo "Codecov did not collect coverage reports"
-  - ctest -D Experimental
+      after_success:
+        - bash <(curl -s https://codecov.io/bash) -f challenge.info || echo "Codecov did not collect coverage reports"
+        - ctest -D Experimental
 
