@@ -36,11 +36,20 @@ addons:
 before_install:
   - sudo apt-get update
   - sudo apt-get install -y libgtest-dev cmake
-  - sudo wget https://github.com/google/googletest/archive/release-1.8.1.tar.gz
-  - sudo tar xf release-1.8.1.tar.gz
+  - wget https://github.com/google/googletest/archive/release-1.8.1.tar.gz
+  - tar xf release-1.8.1.tar.gz
   - pushd $(pwd)
   - cd googletest-release-1.8.1
-  - sudo cmake -DBUILD_SHARED_LIBS=ON .
+  - cmake -DBUILD_SHARED_LIBS=ON .
+  - sudo cmake --build . --target install
+  - popd
+  - sudo wget https://github.com/protocolbuffers/protobuf/archive/v3.7.1.tar.gz
+  - tar -xzvf v3.7.1.tar.gz
+  - pushd $(pwd)
+  - cd protobuf-3.7.1/
+  - mkdir build
+  - cd build
+  - cmake -Dprotobuf_BUILD_TESTS=OFF ../cmake
   - sudo cmake --build . --target install
   - popd
 
@@ -54,3 +63,4 @@ script: cmake --build . --target gcov
 after_success:
   - bash <(curl -s https://codecov.io/bash) -f challenge.info || echo "Codecov did not collect coverage reports"
   - ctest -D Experimental
+
