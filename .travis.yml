@@ -49,7 +49,7 @@ before_install:
   - cd protobuf-3.7.1/
   - mkdir build
   - cd build
-  - cmake ../cmake
+  - cmake -Dprotobuf_BUILD_TESTS=OFF ../cmake
   - sudo cmake --build . --target install
   - popd
 
