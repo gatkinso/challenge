@@ -1,4 +1,5 @@
 .vscode
+.env
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
