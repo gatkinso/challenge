@@ -6,7 +6,10 @@ Detailed test and test coverage information is located at:
 https://my.cdash.org/index.php?project=Challenge
 
 # Overview
-This project is an unsolicited entry for an employment code challenge I found online.  While I am not applying for the job (yet), the challenge looked interesting enough just to do in order to learn something new.... in this case actually learning how to implement a REST API using Flask, and integrate it with other programming languages.  Also, learn how to integrate with Travis-CI, codecov.io, and CDash.
+This project is an unsolicited entry for an employment code challenge I found online.  While I am not applying for the job (yet), the challenge looked interesting enough just to do in order to learn something new.... in this case actually learning how to implement a REST API, Flask, and integrate it with other programming languages.  Also, learn how to integrate with Travis-CI, codecov.io, and CDash.
+
+Most of these things I did not know before starting this project!  I'm a C++ man.  This
+other stuff... all new to me.
 
 # Agent
 This project is an Application Performance Monitoring (APM) middleware library for Python.  It will preprocess both the request and response side of a REST API exchange, and create various telemetry about the exchange.
@@ -49,7 +52,7 @@ Voilà!
 > cmake --build . --target gcov
 ```
 
-HTML formatted code should be generated in the <workspace>/build/code_coverage directory.
+HTML formatted unit test coverage information should be generated in the <workspace>/build/code_coverage directory.
 
 ## Unit tests
 In your build directory, do this...
