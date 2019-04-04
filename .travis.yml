@@ -12,11 +12,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
   
 language: cpp
-
 sudo: required
-
 os: linux
-
 dist: xenial
 
 env:
@@ -25,6 +22,14 @@ env:
     - CTEST_BUILD_FLAGS=-j4
     - CTEST_TARGET_SYSTEM=Linux-gcc
     - CTEST_MODEL=Nightly
+
+language: python
+python:
+  - "3.6"
+  - "3.6-dev"  # 3.6 development branch
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
 
 compiler:
   - gcc
@@ -36,7 +41,6 @@ addons:
 before_install:
   - sudo apt-get update
   - sudo apt-get install -y libgtest-dev cmake
-  - pip install -r requirements.txt
   - wget https://github.com/google/googletest/archive/release-1.8.1.tar.gz
   - tar xf release-1.8.1.tar.gz
   - pushd $(pwd)
