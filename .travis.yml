@@ -10,10 +10,15 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  
+language: cpp
 
 sudo: required
+
 os: linux
+
 dist: xenial
+
 env:
   global:
     - CTEST_EXT_COLOR_OUTPUT=TRUE
@@ -21,17 +26,9 @@ env:
     - CTEST_TARGET_SYSTEM=Linux-gcc
     - CTEST_MODEL=Nightly
 
-language: python
-  python:
-    - "3.6"
-    - "3.6-dev"  # 3.6 development branch
-  install:
-    - pip install -r requirements.txt
-    
-language: cpp
-  compiler:
-    - gcc
-    
+compiler:
+  - gcc
+
 addons:
   apt:
     packages: lcov
@@ -39,6 +36,7 @@ addons:
 before_install:
   - sudo apt-get update
   - sudo apt-get install -y libgtest-dev cmake
+  - pip install -r requirements.txt
   - wget https://github.com/google/googletest/archive/release-1.8.1.tar.gz
   - tar xf release-1.8.1.tar.gz
   - pushd $(pwd)
@@ -66,4 +64,3 @@ script: cmake --build . --target gcov
 after_success:
   - bash <(curl -s https://codecov.io/bash) -f challenge.info || echo "Codecov did not collect coverage reports"
   - ctest -D Experimental
-
