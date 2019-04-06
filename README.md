@@ -8,24 +8,19 @@ https://my.cdash.org/index.php?project=Challenge
 # Overview
 This project is an unsolicited entry for an employment code challenge I found online.  While I am not applying for the job (yet), the challenge looked interesting enough just to do in order to learn something new.... in this case actually learning how to implement a REST API, Flask, and integrate it with other programming languages.  Also, learn how to integrate with Travis-CI, codecov.io, and CDash.
 
-Most of these things I did not know before starting this project!  I'm a C++ man.  This
-other stuff... all new to me.
+Most of these things I did not know before starting this project!  I'm a C++ man.  This other stuff... all new to me.
 
 # Agent
-This project is an Application Performance Monitoring (APM) middleware library for Python.  It will preprocess both the request and response side of a REST API exchange, and create various telemetry about the exchange.
+This project is an Application Performance Monitoring (APM) middleware library for Python.  It will preprocess both the request and response side of a REST API exchange, and create various telemetry about the exchange.  This data will be stored in a CVS file, but that will be extended pretty quickly.  (I'd rather just dump the JSON in Mongo.)
 
 # Architecture
-The agent is implemented in C++, with a Python Flask interface.  It used CMake as the
-build system.  It uses Google Protocol Buffers for the IPC serialization.  Usually
-serializing to JSON, we can flip to the binary format trivially.
+The agent is implemented in C++, with a Python Flask interface.  It used CMake as the build system.  It uses Google Protocol Buffers for the IPC serialization.  Usually serializing to JSON, we can flip to the binary format trivially.
 
 (I was initially thinking this would be a Flask Extension... however I am not sure that is the best way to go.  You can see vestiges of this in the code base, especially the flask-exagent submodule.)
 
-It is imagined that this software will primarily be run on Linux.  Much of the C++ code is based on or inspired by cross platform C++ projects that I have implemented in the past, however I have really only targeted Linux in the CMake files.  It would be fairly trivial to extend this code base to Mac and Windows.
+It is imagined that this software will primarily be run on Linux.  Much of the C++ code is based on or inspired by cross platform C++ projects that I have implemented in the past, however I have really only targeted Linux in the CMake files.  It would be fairly easy to extend this code base to Mac and Windows.
 
-My inner muse thinks that a bevy of thin front ends like Flask, Django, or what have you, interfacing with the high performance C++ backend is the way to go. The front end need not be Python:  C, C++, Ruby... there are many possibilities for agent shims which allow us to keep our IPC and backend stable.  A big plus for the C++ backend is power efficiency...
-
-Mobile anyone?
+My inner muse thinks that a bevy of thin front ends like Flask, Django, or what have you, interfacing with the high performance C++ backend is the way to go. The front end need not be Python:  C, C++, Ruby... there are many possibilities for agent shims which allow us to keep our IPC and backend stable.  A big plus for the C++ backend is power efficiency... mobile anyone?
 
 # Building
 Building is easy.
@@ -52,7 +47,7 @@ Voilà!
 > cmake --build . --target gcov
 ```
 
-HTML formatted unit test coverage information should be generated in the <workspace>/build/code_coverage directory.
+HTML formatted unit test coverage information should be generated in the <topsrc>/build/code_coverage directory.
 
 ## Unit tests
 In your build directory, do this...
@@ -62,6 +57,25 @@ In your build directory, do this...
 ```
 
 This should invoke both the C++ and Python unit tests.
+
+## Building Docker image
+This is easy too.
+
+The image build is a two stage pipeline:  
+1. Build the base image with all dependencies
+2. Build the development image with the built source
+
+Currently, a test and deployment stage do not exist.  :-)
+
+To build the base image, in your top source directory type:
+```
+> docker build . -f Dockerfile.base -t challenge_base
+```
+
+To build the development image, in your top source directory type:
+```
+> docker build . -f Dockerfile.dev -t challenge_dev
+```
 
 # Summary
 I cannot reveal the company this challenge is for - they ask that their name not be used lest other candidates find a submitted solution and draw inspiration from it (if not outright plagiarize it).

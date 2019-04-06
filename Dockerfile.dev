@@ -1,0 +1,14 @@
+FROM challenge_base
+
+WORKDIR /work
+
+ENV PYTHON_INC_DIRS /usr/include/python3.5
+ENV PYTHON_LIB_DIR /usr/lib/python3.5/config-3.5m-x86_64-linux-gnu/
+
+RUN mkdir challenge
+
+COPY . challenge
+
+RUN rm -rf challenge/build && mkdir -p challenge/build/staging && cd challenge/build && \
+cmake -G "Unix Makefiles" . -DCMAKE_BUILD_TYPE=Release .. && \
+cmake --build . 
