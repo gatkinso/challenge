@@ -2,16 +2,11 @@ FROM ubuntu:18.04
 
 WORKDIR /work
 
-ENV PYTHON_INC_DIRS /usr/include/python3.5
-ENV PYTHON_LIB_DIR /usr/lib/python3.5/config-3.5m-x86_64-linux-gnu/
-
-RUN mkdir challenge
-
-COPY . challenge
-
 RUN apt-get update && apt-get upgrade -y
 
-RUN apt-get install -y git gcc g++ make python3-dev uuid-dev wget
+RUN apt-get install -y git gcc g++ make python3-dev uuid-dev wget python-pip
+
+RUN pip install protobuf
 
 RUN wget https://github.com/Kitware/CMake/archive/v3.13.4.tar.gz && \
 tar xf v3.13.4.tar.gz && \
@@ -26,6 +21,10 @@ cmake -DBUILD_SHARED_LIBS=ON . && \
 cmake --build . --target install && \
 cd ..
 
-RUN mkdir build && cd build && \
-cmake -G "Unix Makefiles" . -DCMAKE_BUILD_TYPE=Release /work/challenge && \
-cmake --build . 
+RUN wget https://github.com/protocolbuffers/protobuf/archive/v3.7.1.tar.gz && \
+tar -xzvf v3.7.1.tar.gz && \
+cd protobuf-3.7.1 && \
+mkdir build && \
+cd build && \
+cmake -Dprotobuf_BUILD_TESTS=OFF ../cmake && \
+cmake --build . --target install
