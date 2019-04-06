@@ -85,6 +85,10 @@ To build the development image, in your top source directory type:
 ```
 > docker build . -f Dockerfile.dev -t challenge_dev
 ```
+# Open Questions...
+* The Transport.proto file.  My C++centic view of the universe has it living in the c++/ branch of the source.  I probably should not live there since the Python code is using it as well.  I just lazily plopped the Python generation there because it was convienient and I knew that it would work.
+* The mixed Python/C++ unit testing is clunky.  It just is.
+* I am not sure that the coverage metrics are being generated correctly.  Certainly what is being reported to CDash is incorrect.  The cocecov.io metrics look better, but are not including Python coverage.
 
 # Summary
 I cannot reveal the company this challenge is for - they ask that their name not be used lest other candidates find a submitted solution and draw inspiration from it (if not outright plagiarize it).
