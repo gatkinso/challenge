@@ -11,26 +11,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
-#include "apm.h"
+#pragma once
 
-using namespace exagent;
+#include <string>
 
-class RequestUnitTest : public ::testing::Test
-{
-protected:
-    RequestUnitTest() {}
+namespace exagent {
+
+class Hasher {
+public:
+    Hasher() = delete;
+
+    static bool md5(const std::string& in, std::string& result);
 };
 
-TEST_F(RequestUnitTest, Instantiate)
-{
-    ASSERT_NO_THROW(APM apm);
 }
 
-TEST_F(RequestUnitTest, process_request)
-{
-    APM apm;
-
-    ASSERT_TRUE(apm.process_request("{}"));
-}

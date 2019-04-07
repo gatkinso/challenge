@@ -11,26 +11,33 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
-#include "apm.h"
+#include "hasher.h"
+#include <vector>
+#include <openssl/md5.h>
 
-using namespace exagent;
+namespace exagent {
 
-class RequestUnitTest : public ::testing::Test
-{
-protected:
-    RequestUnitTest() {}
-};
+bool Hasher::md5(const std::string& in, std::string& result)
+{   
+    if(in.size() == 0)
+    {
+        return false;
+    }
+    
+    unsigned char digest[16];
+ 
+    MD5_CTX ctx;
+    MD5_Init(&ctx);
+    MD5_Update(&ctx, in.data(), in.size());
+    MD5_Final(digest, &ctx);
+ 
+    char mdString[33];
+    for (int i = 0; i < 16; i++)
+        sprintf(&mdString[i*2], "%02x", (unsigned int)digest[i]);
+    
+    result = mdString; //Could just return the digest, eliminating this copy
 
-TEST_F(RequestUnitTest, Instantiate)
-{
-    ASSERT_NO_THROW(APM apm);
+    return true;
 }
 
-TEST_F(RequestUnitTest, process_request)
-{
-    APM apm;
-
-    ASSERT_TRUE(apm.process_request("{}"));
 }

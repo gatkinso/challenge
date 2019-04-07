@@ -14,7 +14,9 @@
 #pragma once
 
 #include <vector>
-#include <string>  
+#include <string>
+#include <map>
+#include <mutex>
 
 namespace exagent
 {
@@ -24,8 +26,12 @@ class APM
 public:
     APM();
 
-    bool process_request();
-    bool process_response();
+    bool process_request(const std::string req_json_str);
+    bool process_response(const std::string res_json_str);
+
+private:
+    std::mutex mtx_;
+    std::map<std::string, std::string> exmap_;
 };
 
 }

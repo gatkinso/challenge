@@ -39,7 +39,7 @@ addons:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install -y libgtest-dev cmake
+  - sudo apt-get install -y libgtest-dev cmake libssl-dev
   - wget https://github.com/google/googletest/archive/release-1.8.1.tar.gz
   - tar xf release-1.8.1.tar.gz
   - pushd $(pwd)
@@ -53,7 +53,7 @@ before_install:
   - cd protobuf-3.7.1/
   - mkdir build
   - cd build
-  - cmake -Dprotobuf_BUILD_TESTS=OFF ../cmake
+  - cmake -Dprotobuf_BUILD_TESTS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON ../cmake
   - sudo cmake --build . --target install
   - popd
 

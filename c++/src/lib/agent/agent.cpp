@@ -13,6 +13,7 @@
 
 #include <string>
 #include <Python.h>
+#include "apm.h"
 
 static PyObject *AgentError;
 static PyObject* libagent_setcfg(PyObject *self, PyObject *args);
@@ -69,11 +70,39 @@ static PyObject* libagent_setcfg(PyObject *self, PyObject *args)
 
 static PyObject* libagent_request(PyObject *self, PyObject *args)
 {
+    const char* json = nullptr;
+
+    if (!PyArg_ParseTuple(args, "s", &json))
+        Py_RETURN_NONE;
+    
+    if (nullptr != json)
+    {
+        exagent::APM apm;
+        if (false == apm.process_request(json))
+        {
+            //log the error
+        }
+    }
+
     Py_RETURN_NONE;
 }
 
 static PyObject* libagent_response(PyObject *self, PyObject *args)
 {
+    const char* json = nullptr;
+
+    if (!PyArg_ParseTuple(args, "s", &json))
+        Py_RETURN_NONE;
+    
+    if (nullptr != json)
+    {
+        exagent::APM apm;
+        if (false == apm.process_response(json))
+        {
+            //log the error
+        }
+    }
+
     Py_RETURN_NONE;
 }
 

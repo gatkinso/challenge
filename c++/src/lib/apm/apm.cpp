@@ -13,6 +13,7 @@
 
 #include "apm.h"
 #include "transport.pb.h"
+#include "google/protobuf/util/json_util.h"
 
 namespace exagent
 {
@@ -22,14 +23,39 @@ APM::APM()
 
 }
 
-bool APM::process_request()
+bool APM::process_request(const std::string req_json_str)
 {
-    challenge::transport::Transport txp;
+    challenge::transport::Transport txp_proto;
+
+    if (req_json_str.length() == 0)
+    {
+        return false;
+    }
+
+    auto ret = google::protobuf::util::JsonStringToMessage(req_json_str, &txp_proto);
+
+    if (ret != google::protobuf::util::Status::OK)
+    {
+        return false;
+    }
+
+    for (auto val : txp_proto.string_values())
+    {
+        if (val.first == "uuid")
+        {
+            std::lock_guard<std::mutex> lock(mtx_);
+            exmap_[val.second] = req_json_str;
+            break;
+        }
+    }
+
     return true;
 }
 
-bool APM::process_response()
+bool APM::process_response(const std::string res_json_str)
 {
+    std::lock_guard<std::mutex> lock(mtx_);
+
     return true;
 }
 

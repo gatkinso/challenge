@@ -56,6 +56,8 @@ endforeach(PROTO)
 
 set_property(SOURCE ${PROTOCPP_RESULTS} APPEND PROPERTY OBJECT_DEPENDS ${PROTOPY_RESULTS})
 
+add_compile_options(-fPIC)
+
 add_library(${TARGETNAME} STATIC ${PROTOCPP_RESULTS})
 
 if(MSVC)
