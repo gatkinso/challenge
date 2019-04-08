@@ -38,6 +38,8 @@ static struct PyModuleDef agentmodule = {
     AgentMethods
 };
 
+exagent::APM apm;
+
 /////////////////////////////////////////////////////////////
 
 PyMODINIT_FUNC PyInit_libagent(void)
@@ -71,14 +73,14 @@ static PyObject* libagent_setcfg(PyObject *self, PyObject *args)
 static PyObject* libagent_request(PyObject *self, PyObject *args)
 {
     const char* json = nullptr;
+    const char* id = nullptr;
 
-    if (!PyArg_ParseTuple(args, "s", &json))
+    if (!PyArg_ParseTuple(args, "ss", &json, &id))
         Py_RETURN_NONE;
     
     if (nullptr != json)
     {
-        exagent::APM apm;
-        if (false == apm.process_request(json))
+        if (false == apm.process_request(json, id))
         {
             //log the error
         }
@@ -90,14 +92,14 @@ static PyObject* libagent_request(PyObject *self, PyObject *args)
 static PyObject* libagent_response(PyObject *self, PyObject *args)
 {
     const char* json = nullptr;
+    const char* id = nullptr;
 
-    if (!PyArg_ParseTuple(args, "s", &json))
+    if (!PyArg_ParseTuple(args, "ss", &json, &id))
         Py_RETURN_NONE;
     
-    if (nullptr != json)
+    if (nullptr != json || nullptr == id)
     {
-        exagent::APM apm;
-        if (false == apm.process_response(json))
+        if (false == apm.process_response(json, id))
         {
             //log the error
         }

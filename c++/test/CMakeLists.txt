@@ -16,6 +16,7 @@ set(TARGETNAME challenge_tests)
 include_directories(
                 ${PROJECT_SOURCE_DIR}/c++/include/apm
                 ${PROJECT_SOURCE_DIR}/c++/include/hasher
+                ${PROJECT_BINARY_DIR}/proto/cpp
 )
 
 add_executable(${TARGETNAME} 
@@ -26,11 +27,11 @@ add_executable(${TARGETNAME}
                 response_unit_test.cpp
 )
 
-target_link_libraries(${TARGETNAME} GTest::GTest GTest::Main ${PLATFORM_LINK_LIBS} apm agent hasher)
+target_link_libraries(${TARGETNAME} GTest::GTest GTest::Main ${PLATFORM_LINK_LIBS} apm agent hasher transport)
 
 gtest_discover_tests(${TARGETNAME} TEST_PREFIX challenge_generated_tests:)
 
-add_dependencies(${TARGETNAME} agent apm hasher)
+add_dependencies(${TARGETNAME} agent apm hasher transport)
 
 if(GENERATE_COV)
     add_custom_target(gcov

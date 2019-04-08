@@ -16,10 +16,11 @@ set(${TARGETNAME}_INC_DIR ${PROJECT_SOURCE_DIR}/c++/include/${TARGETNAME})
 
 include_directories(
                    ${${TARGETNAME}_INC_DIR}
+                   ${PROJECT_SOURCE_DIR}/c++/include/hasher
                    ${PROJECT_BINARY_DIR}/proto/cpp
 )
 
-set(LINK_LIBS transport)
+set(LINK_LIBS transport hasher)
 set(${TARGETNAME}_SOURCES ${TARGETNAME}.cpp)
 set(BUILD_SHARED_LIBS FALSE)
 
