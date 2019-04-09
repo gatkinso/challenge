@@ -22,7 +22,7 @@ It is imagined that this software will primarily be run in a Linux container.  M
 
 Actual deployment will probably never happen, however I have included a couple of Dockerfiles that start down that road.  I am going to leverage what I learn here for another project I am writing called Skywire that will indeed be deployed to a cloud provider.
 
-Becuase of that I am holding back some of my cooler "Stupid Protocol Buffer Tricks."  You just get this watered down version.
+Because of that I am holding back some of my cooler "Stupid Protocol Buffer Tricks."  You just get this watered down version.  Trust me when it comes to protobuf, I am the master.
 
 # Dependencies
 | Dependency              | Version | URL                                         |
@@ -31,7 +31,7 @@ Becuase of that I am holding back some of my cooler "Stupid Protocol Buffer Tric
 | Google Protocol Buffers | 3.7.1   | https://github.com/protocolbuffers/protobuf |
 | Google Test             | 1.8.1   | https://github.com/google/googletest        |
 
-For more detail on dependencies you can always refer to the .travis.yml for Dockerfiles.
+For more detail on dependencies you can always refer to the .travis.yml or Dockerfiles.
 
 ## A Note on Google Protocol Buffers
 Google.  Why must you vex us so?  When building Protocol Buffers for use with this project, be sure to specify that the CMAKE_POSITION_INDEPENDENT_CODE option is set to ON (this sets the gcc compile flag -fPIC).  The agent will not link correctly if this is not set.
@@ -63,9 +63,11 @@ Voilà!
 ```
 
 HTML formatted unit test coverage information should be generated in the <topsrc>/build/code_coverage directory.
+  
+Your build artifacts should be in the  <topsrc>/build/staging directory.
 
 ## Unit tests
-In your build directory, do this...
+To run the unit tests, in your build directory, do this...
 
 ```
 > ctest .
@@ -74,7 +76,7 @@ In your build directory, do this...
 This should invoke both the C++ and Python unit tests.
 
 # Testing
-In the flask-exagent submodule, I included a little example Flask application that I found in the blogosphere which I instrumented.
+In the flask-exagent submodule, I included a little example Flask application (app.py) that I found in the blogosphere which I instrumented.
 
 Perform the following steps to setup your environment...
 
@@ -116,6 +118,7 @@ To build the development image, in your top source directory type:
 ```
 > docker build . -f Dockerfile.dev -t challenge_dev
 ```
+
 # Issues...
 This code works.  However there are always warts...
 
