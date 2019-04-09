@@ -18,8 +18,6 @@
 #include <fstream>
 #include <sstream>
 
-#include <iostream>
-
 namespace exagent
 {
 
@@ -54,7 +52,6 @@ void build_str(const std::string& key, challenge::transport::Transport& txp_prot
 
 bool APM::process_response(const std::string res_json_str, const std::string id)
 {
-    //std::cerr << id.c_str();
     std::lock_guard<std::mutex> lock(mtx_);
 
     auto req = exmap_.find(id);

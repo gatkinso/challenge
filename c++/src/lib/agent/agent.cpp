@@ -67,6 +67,8 @@ static PyObject* libagent_setcfg(PyObject *self, PyObject *args)
     if (nullptr != filename)
         cfgfilename = std::string(filename);
 
+    apm.set_filename(cfgfilename);
+
     Py_RETURN_NONE;
 }
 
