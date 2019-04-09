@@ -22,6 +22,8 @@ set(LINK_LIBS crypto)
 set(${TARGETNAME}_SOURCES ${TARGETNAME}.cpp)
 set(BUILD_SHARED_LIBS FALSE)
 
+add_compile_options(-fPIC)
+
 add_library(${TARGETNAME} STATIC ${${TARGETNAME}_SOURCES})
 
 target_link_libraries(${TARGETNAME} ${LINK_LIBS})
