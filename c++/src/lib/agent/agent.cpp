@@ -13,6 +13,7 @@
 
 #include <string>
 #include <Python.h>
+#include "apm.h"
 
 static PyObject *AgentError;
 static PyObject* libagent_setcfg(PyObject *self, PyObject *args);
@@ -36,6 +37,8 @@ static struct PyModuleDef agentmodule = {
            or -1 if the module keeps state in global variables. */
     AgentMethods
 };
+
+exagent::APM apm;
 
 /////////////////////////////////////////////////////////////
 
@@ -64,16 +67,46 @@ static PyObject* libagent_setcfg(PyObject *self, PyObject *args)
     if (nullptr != filename)
         cfgfilename = std::string(filename);
 
+    apm.set_filename(cfgfilename);
+
     Py_RETURN_NONE;
 }
 
 static PyObject* libagent_request(PyObject *self, PyObject *args)
 {
+    const char* json = nullptr;
+    const char* id = nullptr;
+
+    if (!PyArg_ParseTuple(args, "ss", &json, &id))
+        Py_RETURN_NONE;
+    
+    if (nullptr != json)
+    {
+        if (false == apm.process_request(json, id))
+        {
+            //log the error
+        }
+    }
+
     Py_RETURN_NONE;
 }
 
 static PyObject* libagent_response(PyObject *self, PyObject *args)
 {
+    const char* json = nullptr;
+    const char* id = nullptr;
+
+    if (!PyArg_ParseTuple(args, "ss", &json, &id))
+        Py_RETURN_NONE;
+    
+    if (nullptr != json || nullptr == id)
+    {
+        if (false == apm.process_response(json, id))
+        {
+            //log the error
+        }
+    }
+
     Py_RETURN_NONE;
 }
 

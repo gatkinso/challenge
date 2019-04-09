@@ -13,34 +13,16 @@
 
 #pragma once
 
-#include <vector>
 #include <string>
-#include <map>
-#include <mutex>
 
-namespace exagent
-{
+namespace exagent {
 
-class APM
-{
+class Hasher {
 public:
-    APM() = default;
-    ~APM() {};
+    Hasher() = delete;
 
-    bool process_request(const std::string req_json_str, const std::string id);
-    bool process_response(const std::string res_json_str, const std::string id);
-
-    std::string get_filename();
-    void set_filename(const std::string filename);
-
-private:
-    std::mutex mtx_;
-    std::map<std::string, std::string> exmap_;
-    std::string filename_ = "agent_out.txt";
-
-    bool write_file(const std::string str);    
+    static bool md5(const std::string& in, std::string& result);
 };
 
 }
-
 

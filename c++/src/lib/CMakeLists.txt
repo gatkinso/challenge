@@ -12,5 +12,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 add_subdirectory(transport)
+add_subdirectory(hasher)
 add_subdirectory(apm)
 add_subdirectory(agent)

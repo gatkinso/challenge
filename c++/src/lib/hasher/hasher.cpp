@@ -11,36 +11,33 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
-
+#include "hasher.h"
 #include <vector>
-#include <string>
-#include <map>
-#include <mutex>
+#include <openssl/md5.h>
 
-namespace exagent
-{
+namespace exagent {
 
-class APM
-{
-public:
-    APM() = default;
-    ~APM() {};
+bool Hasher::md5(const std::string& in, std::string& result)
+{   
+    if(in.size() == 0)
+    {
+        return false;
+    }
+    
+    unsigned char digest[16];
+ 
+    MD5_CTX ctx;
+    MD5_Init(&ctx);
+    MD5_Update(&ctx, in.data(), in.size());
+    MD5_Final(digest, &ctx);
+ 
+    char mdString[33];
+    for (int i = 0; i < 16; i++)
+        sprintf(&mdString[i*2], "%02x", (unsigned int)digest[i]);
+    
+    result = mdString; //Could just return the digest, eliminating this copy
 
-    bool process_request(const std::string req_json_str, const std::string id);
-    bool process_response(const std::string res_json_str, const std::string id);
-
-    std::string get_filename();
-    void set_filename(const std::string filename);
-
-private:
-    std::mutex mtx_;
-    std::map<std::string, std::string> exmap_;
-    std::string filename_ = "agent_out.txt";
-
-    bool write_file(const std::string str);    
-};
-
+    return true;
 }
 
-
+}

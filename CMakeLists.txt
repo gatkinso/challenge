@@ -18,6 +18,8 @@ project(challenge)
 include (CTest)
 enable_testing()
 
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/staging)
+
 if(GENERATE_COV)
     set(CMAKE_CXX_FLAGS "-g -O0 -Wall --coverage")
     set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)  
@@ -35,7 +37,8 @@ include_directories(${PROTOBUF_INCLUDE_DIRS})
 include(FindPythonInterp)
 add_test(NAME PythonTest 
     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_BINARY_DIR}/staging/unit_test.py 
-    WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH} )
+    WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
+)
 
 add_subdirectory(c++)
 

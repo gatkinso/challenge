@@ -16,12 +16,15 @@ set(${TARGETNAME}_INC_DIR ${PROJECT_SOURCE_DIR}/c++/include/${TARGETNAME})
 
 include_directories(
                    ${${TARGETNAME}_INC_DIR}
+                   ${PROJECT_SOURCE_DIR}/c++/include/hasher
                    ${PROJECT_BINARY_DIR}/proto/cpp
 )
 
-set(LINK_LIBS transport)
+set(LINK_LIBS transport hasher)
 set(${TARGETNAME}_SOURCES ${TARGETNAME}.cpp)
 set(BUILD_SHARED_LIBS FALSE)
+
+add_compile_options(-fPIC)
 
 add_library(${TARGETNAME} STATIC ${${TARGETNAME}_SOURCES})
 
@@ -36,6 +39,6 @@ if(GENERATE_COV)
         COMMAND gcov ${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.gcno
         COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGETNAME}.dir/*.gcno ${CMAKE_BINARY_DIR}/coverage
         #COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGETNAME}.dir/*.gcda ${CMAKE_BINARY_DIR}/coverage          
-        COMMAND lcov --capture --initial --directory ${CMAKE_BINARY_DIR}/coverage --output-file ${CMAKE_BINARY_DIR}/coverage/lcovoutput-libapm.info
+        COMMAND lcov --capture --initial --directory ${CMAKE_BINARY_DIR}/coverage --output-file ${CMAKE_BINARY_DIR}/coverage/lcovoutput-lib${TARGETNAME}.info
     )
 endif(GENERATE_COV)

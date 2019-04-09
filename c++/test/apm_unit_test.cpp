@@ -14,23 +14,44 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include "apm.h"
+#include "transport.pb.h"
+#include "google/protobuf/util/json_util.h"
 
 using namespace exagent;
 
-class RequestUnitTest : public ::testing::Test
+class APMUnitTest : public ::testing::Test
 {
 protected:
-    RequestUnitTest() {}
-};
+    APMUnitTest() {}
 
-TEST_F(RequestUnitTest, Instantiate)
-{
-    ASSERT_NO_THROW(APM apm);
-}
-
-TEST_F(RequestUnitTest, process_request)
-{
     APM apm;
 
-    ASSERT_TRUE(apm.process_request());
+    std::string req_str = "{ \"stringValues\": {    \"uuid\": \"cfdca0e5-b14a-43f5-aa7e-d9a9561064dc\"," \
+   "\"method\": \"GET\",    \"endpoint\": \"get_tasks\",    \"pid\": \"20513\"," \
+   "\"tid\": \"140266636424960\",    \"timestamp\": \"2019-04-08 22:27:54.522591\"," \
+   "\"base_url\": \"http://127.0.0.1:5000/todo/api/v1.0/tasks\"  }}";
+};
+
+TEST_F(APMUnitTest, process_exchange)
+{
+    challenge::transport::Transport txp_proto;
+    ASSERT_TRUE(apm.process_request(req_str, "testid"));
+
+    std::string response_json("{ \"response\": { \"timestamp\":\"1554584055\"} }");
+
+    ASSERT_TRUE(apm.process_response(response_json, "testid"));
 }
+
+/*  Reference req_str
+{  
+   "stringValues":{  
+      "uuid":"cfdca0e5-b14a-43f5-aa7e-d9a9561064dc",
+      "method":"GET",
+      "endpoint":"get_tasks",
+      "pid":"20513",
+      "tid":"140266636424960",
+      "timestamp":"2019-04-08 22:27:54.522591",
+      "base_url":"http://127.0.0.1:5000/todo/api/v1.0/tasks"
+   }
+}
+*/
