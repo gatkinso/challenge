@@ -131,6 +131,7 @@ This code works.  However there are always warts...
 * I am not bothering to increment/decrement instance counters in the C(++) extension.
 * A dearth of error checking, logging, or exception handling.
 * I am using CMake to build the libagent extension.  I have strong reasons for not relying on Python for this.
+* No linting.
 
 # Summary
 I cannot reveal the company this challenge is for - they ask that their name not be used lest other candidates find a submitted solution and draw inspiration from it (if not outright plagiarize it).
