@@ -47,7 +47,7 @@ before_install:
   - cmake -DBUILD_SHARED_LIBS=ON .
   - sudo cmake --build . --target install
   - popd
-  - sudo wget https://github.com/protocolbuffers/protobuf/archive/v3.7.1.tar.gz
+  - wget https://github.com/protocolbuffers/protobuf/archive/v3.7.1.tar.gz
   - tar -xzvf v3.7.1.tar.gz
   - pushd $(pwd)
   - cd protobuf-3.7.1/
