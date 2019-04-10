@@ -63,7 +63,7 @@ Voilà!
 ```
 
 HTML formatted unit test coverage information should be generated in the <topsrc>/build/code_coverage directory.
-  
+ 
 Your build artifacts should be in the  <topsrc>/build/staging directory.
 
 ## Unit tests
@@ -122,15 +122,15 @@ To build the development image, in your top source directory type:
 # Issues...
 This code works.  However there are always warts...
 
-* The Transport.proto file.  My C++-centic view of the universe has it living in the c++/ branch of the source.  It probably should not live there since the Python code is using it as well.  I just lazily plopped the Python code generation there because it was convienient and I knew that it would work.
+* The Transport.proto file.  My C++-centric view of the universe has it living in the c++/ branch of the source.  It probably should not live there since the Python code is using it as well.  I just lazily plopped the Python code generation there because it was convenient and I knew that it would work.
 * The mixed Python/C++ unit testing is clunky.  It just is.
 * I am not sure that the coverage metrics are being generated correctly.  Certainly what is being reported to CDash is incorrect.  The codecov.io metrics look better, but are not including Python coverage.
-* Additionally, the way the coverage files are being and staged is a bit hamfisted.  It doesn't even rise to the level of roast beef.  (What???)
+* Additionally, the way the coverage files are being generated and staged is a bit hamfisted.  It doesn't even rise to the level of roast beef.  (What???)
 * Something is broken in the coverage report generation.  It is pulling in system file headers.  Will I fix it?  Perhaps.
 * In the C++ code there are many copy operations that could easily be eliminated.
 * I am not bothering to increment/decrement instance counters in the C(++) extension.
 * A dearth of error checking, logging, or exception handling.
-* I am using CMake to build the libagent extension.  I have strong reasons for not replying on Python for this.
+* I am using CMake to build the libagent extension.  I have strong reasons for not relying on Python for this.
 
 # Summary
 I cannot reveal the company this challenge is for - they ask that their name not be used lest other candidates find a submitted solution and draw inspiration from it (if not outright plagiarize it).
@@ -140,6 +140,4 @@ However the conditions of this challenge are pretty cool.  The code remains the 
 This is pretty progressive thinking.  It stands in stark contrast to some other parasitic creatures at unethical organizations that essentially are using code challenges as a source of free labor.
 
 I encourage you to check it out and see if it has anything to offer you.  It is released under the GPLv3.  The Flask extension under the simplified BSD license.
-
-
 
