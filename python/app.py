@@ -6,7 +6,7 @@ from flask_exagent import FlaskExagent #TO USE AGENT: Add this line
 app = Flask(__name__, static_url_path = "")
 
 agent = FlaskExagent(app) #TO USE AGENT: Change this line to instantiate FlaskExagent
-
+agent.set_output_filename("telemetry.csv")
 
 @app.errorhandler(400)
 def not_found(error):

@@ -20,6 +20,7 @@ find_package(Python3 COMPONENTS Development)
 include_directories(
                    ${${TARGETNAME}_INC_DIR}
                    ${PROJECT_SOURCE_DIR}/c++/include/apm
+                   ${PROJECT_BINARY_DIR}/proto/cpp
                    ${Python3_INCLUDE_DIRS}
 )
 

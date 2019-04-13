@@ -12,11 +12,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "apm.h"
-#include "transport.pb.h"
 #include "google/protobuf/util/json_util.h"
 #include "hasher.h"
 #include <fstream>
-#include <sstream>
 
 namespace exagent
 {
@@ -29,6 +27,9 @@ bool APM::process_request(const std::string req_json_str, const std::string id)
         return false;
     }
 
+    // It would be better to get the process and thread information here.
+    // However, requirements are requirements.
+
     {
         std::lock_guard<std::mutex> lock(mtx_);
         exmap_[id] = req_json_str;
@@ -37,7 +38,7 @@ bool APM::process_request(const std::string req_json_str, const std::string id)
     return true;
 }
 
-void build_str(const std::string& key, challenge::transport::Transport& txp_proto, 
+void APM::build_str(const std::string& key, challenge::transport::Transport& txp_proto, 
     std::stringstream& ss, bool end)
 {
     auto iter = txp_proto.string_values().find(key);
@@ -79,8 +80,6 @@ bool APM::process_response(const std::string res_json_str, const std::string id)
     build_str("tid", txp_proto, ss, false);
     build_str("base_url", txp_proto, ss, false);
     build_str("method", txp_proto, ss, false);
-    build_str("timestamp", txp_proto, ss, false);
-    build_str("timestamp", txp_proto, ss, false);
     ss << md5_str << std::endl;
 
     if (false == this->write_file(ss.str()))
@@ -105,6 +104,7 @@ bool APM::write_file(const std::string str)
 {
     try
     {
+        // Maybe open and clamp to the lifetime of the class...
         std::ofstream out_file(filename_, std::ofstream::out | std::ofstream::app);
         out_file.write(str.c_str(), str.size());
     }

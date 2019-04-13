@@ -32,9 +32,9 @@ static PyMethodDef AgentMethods[] = {
 static struct PyModuleDef agentmodule = {
     PyModuleDef_HEAD_INIT,
     "libagent", /* name of module */
-    nullptr, /* module documentation, may be nullptr */
-    -1, /* size of per-interpreter state of the module,
-           or -1 if the module keeps state in global variables. */
+    nullptr,    /* module documentation, may be nullptr */
+    -1,         /* size of per-interpreter state of the module,
+                   or -1 if the module keeps state in global variables. */
     AgentMethods
 };
 
@@ -66,6 +66,8 @@ static PyObject* libagent_setcfg(PyObject *self, PyObject *args)
     
     if (nullptr != filename)
         cfgfilename = std::string(filename);
+    else
+        Py_RETURN_NONE;
 
     apm.set_filename(cfgfilename);
 
