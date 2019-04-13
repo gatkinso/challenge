@@ -24,18 +24,21 @@ bool Hasher::md5(const std::string& in, std::string& result)
         return false;
     }
     
-    unsigned char digest[16];
+    std::vector<unsigned char> digest(MD5_DIGEST_LEN);
  
     MD5_CTX ctx;
     MD5_Init(&ctx);
     MD5_Update(&ctx, in.data(), in.size());
-    MD5_Final(digest, &ctx);
+    MD5_Final(digest.data(), &ctx);
  
-    char mdString[33];
-    for (int i = 0; i < 16; i++)
+    std::vector<char> mdString(MD5_STR_LEN);
+    for (size_t i = 0; i < digest.size(); i++)
+    {
         sprintf(&mdString[i*2], "%02x", (unsigned int)digest[i]);
+    }
     
-    result = mdString; //Could just return the digest, eliminating this copy
+    result.resize(MD5_STR_LEN);
+    std::copy(mdString.begin(), mdString.end(), result.begin()); //Could just return the digest, eliminating this copy
 
     return true;
 }

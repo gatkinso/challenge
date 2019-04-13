@@ -9,7 +9,7 @@ TEST(HasherTest, MD5)
     std::string result;
     std::string data("{ \"request\": { \"timestamp\":\"1554584055\"} }");
 
-    std::string expected("891f7e5b8b91ebf3eaf4523af9608594");
+    std::string expected("891f7e5b8b91ebf3eaf4523af9608594\0");
     
     bool ret = Hasher::md5(data, result);
     ASSERT_TRUE(ret);

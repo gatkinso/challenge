@@ -22,6 +22,10 @@ public:
     Hasher() = delete;
 
     static bool md5(const std::string& in, std::string& result);
+
+private:
+    static const size_t MD5_DIGEST_LEN = 16;
+    static const size_t MD5_STR_LEN = 32;
 };
 
 }

@@ -17,6 +17,8 @@
 #include <string>
 #include <map>
 #include <mutex>
+#include <sstream>
+#include "transport.pb.h"
 
 namespace exagent
 {
@@ -38,7 +40,9 @@ private:
     std::map<std::string, std::string> exmap_;
     std::string filename_ = "agent_out.txt";
 
-    bool write_file(const std::string str);    
+    bool write_file(const std::string str);
+    void build_str(const std::string& key, challenge::transport::Transport& txp_proto, 
+                   std::stringstream& ss, bool end);
 };
 
 }
