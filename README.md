@@ -97,7 +97,7 @@ from flask_exagent import FlaskExagent        # add this import
 
 app = Flask(__name__, static_url_path = "")   # keep this
 
-agent = FlaskExagent(app)                     # replace 'App' with 'Flask'
+agent = FlaskExagent(app)                     # replace 'App' with 'FlaskExagent'
 ````
 
 ## Building Docker image
