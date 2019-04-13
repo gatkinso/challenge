@@ -19,29 +19,6 @@
 
 using namespace exagent;
 
-class APMUnitTest : public ::testing::Test
-{
-protected:
-    APMUnitTest() {}
-
-    APM apm;
-
-    std::string req_str = "{ \"stringValues\": {    \"uuid\": \"cfdca0e5-b14a-43f5-aa7e-d9a9561064dc\"," \
-   "\"method\": \"GET\",    \"endpoint\": \"get_tasks\",    \"pid\": \"20513\"," \
-   "\"tid\": \"140266636424960\",    \"timestamp\": \"2019-04-08 22:27:54.522591\"," \
-   "\"base_url\": \"http://127.0.0.1:5000/todo/api/v1.0/tasks\"  }}";
-};
-
-TEST_F(APMUnitTest, process_exchange)
-{
-    challenge::transport::Transport txp_proto;
-    ASSERT_TRUE(apm.process_request(req_str, "testid"));
-
-    std::string response_json("{ \"response\": { \"timestamp\":\"1554584055\"} }");
-
-    ASSERT_TRUE(apm.process_response(response_json, "testid"));
-}
-
 /*  Reference req_str
 {  
    "stringValues":{  
@@ -55,3 +32,76 @@ TEST_F(APMUnitTest, process_exchange)
    }
 }
 */
+
+class APMUnitTest : public ::testing::Test
+{
+protected:
+    APMUnitTest() {}
+
+    std::string req_str = "{ \"stringValues\": {    \"uuid\": \"cfdca0e5-b14a-43f5-aa7e-d9a9561064dc\"," \
+    "\"method\": \"GET\",    \"endpoint\": \"get_tasks\",    \"pid\": \"20513\"," \
+    "\"tid\": \"140266636424960\",    \"timestamp\": \"2019-04-08 22:27:54.522591\"," \
+    "\"base_url\": \"http://127.0.0.1:5000/todo/api/v1.0/tasks\"  }}";
+};
+
+TEST_F(APMUnitTest, process_exchange)
+{
+    APM apm;
+
+    challenge::transport::Transport txp_proto;
+    ASSERT_TRUE(apm.process_request(req_str, "testid"));
+
+    std::string response_json("{ \"response\": { \"timestamp\":\"1554584055\"} }");
+
+    ASSERT_TRUE(apm.process_response(response_json, "testid"));
+}
+
+TEST_F(APMUnitTest, process_request_fail_empty_req)
+{
+    APM apm;
+    challenge::transport::Transport txp_proto;
+    std::string empty_request_str;
+    ASSERT_FALSE(apm.process_request(empty_request_str, "testid"));
+}
+
+TEST_F(APMUnitTest, process_request_fail_empty_id)
+{
+    APM apm;
+    challenge::transport::Transport txp_proto;
+    std::string empty_id_str;
+    ASSERT_FALSE(apm.process_request(req_str, empty_id_str));
+}
+
+TEST_F(APMUnitTest, process_exchange_fail_wrongid)
+{
+    APM apm;
+    challenge::transport::Transport txp_proto;
+    ASSERT_TRUE(apm.process_request(req_str, "testid"));
+
+    std::string response_json("{ \"response\": { \"timestamp\":\"1554584055\"} }");
+
+    ASSERT_FALSE(apm.process_response(response_json, "testid1"));
+}
+
+TEST_F(APMUnitTest, process_exchange_fail_hash_fails)
+{
+    APM apm;
+    challenge::transport::Transport txp_proto;
+    ASSERT_TRUE(apm.process_request(req_str, "testid"));
+
+    std::string response_json;
+
+    ASSERT_FALSE(apm.process_response(response_json, "testid"));
+}
+
+TEST_F(APMUnitTest, process_exchange_fail_malformed_protojson)
+{
+    APM apm;
+    challenge::transport::Transport txp_proto;
+    std::string _req_str = "This is not a valid string";
+    ASSERT_TRUE(apm.process_request(_req_str, "testid"));
+
+    std::string response_json;
+
+    ASSERT_FALSE(apm.process_response(response_json, "testid"));
+}
