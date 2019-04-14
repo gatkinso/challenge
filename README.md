@@ -18,7 +18,7 @@ The agent is implemented in C++, with a Python interface for a simple Flask appl
 
 I was initially thinking this would be a Flask Extension... however I am not sure that is the best way to go.  You can see vestiges of this in the code base, especially the flask-exagent submodule.  My inner muse thinks that a bevy of thin front ends for Flask, Django, (or what have you), interfacing with the high performance C++ back end is the way to go. The front end need not even be Python:  C, C++, Ruby... there are many possibilities for agent shims which allow us to keep our IPC and processing back end stable.  A big plus for the C++ backend is power efficiency... mobile anyone?
 
-It is imagined that this software will primarily be run in a Linux container.  Much of the C++ code is based on or inspired by cross platform C++ projects that I have implemented in the past, however I have really only targeted Linux in the CMake files.  It would be fairly easy to extend this code base to Mac and Windows.
+It is imagined that this software will primarily be run in the context of a containerized environment.  Much of the C++ code is based on or inspired by cross platform C++ projects that I have implemented in the past, however I have really only targeted Linux in the CMake files.  It would be fairly easy to extend this code base to Mac and Windows.
 
 Actual deployment will probably never happen, however I have included a couple of Dockerfiles that start down that road.  I am going to leverage what I learn here for another project I am writing called Skywire that will indeed be deployed to a cloud provider.
 
