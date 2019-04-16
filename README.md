@@ -46,6 +46,7 @@ Building is easy.
 ```
 > git checkout https://github.com/gatkinso/challenge.git
 > cd challenge
+> git submodule update --init --recursive
 > mkdir build && cd build
 > cmake ..
 > cmake --build .
@@ -57,6 +58,7 @@ Voilà!
 ```
 > git checkout https://github.com/gatkinso/challenge.git
 > cd challenge
+> git submodule update --init --recursive
 > mkdir build && cd build
 > cmake -DGENERATE_COV:BOOL=TRUE ..
 > cmake --build . --target gcov
