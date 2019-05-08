@@ -69,7 +69,7 @@ HTML formatted unit test coverage information should be generated in the <topsrc
 Your build artifacts should be in the  <topsrc>/build/staging directory.
 
 ## Unit tests
-To run the unit tests, in your build directory, do this...
+To run the unit tests, in your build directory, run this...
 
 ```
 > ctest .
@@ -78,7 +78,9 @@ To run the unit tests, in your build directory, do this...
 This should invoke both the C++ and Python unit tests.
 
 # Testing
-In the flask-exagent submodule, I included a little example Flask application (app.py) that I found in the blogosphere which I instrumented.
+I included a little example Flask application (app.py) that I found in the blogosphere which I instrumented.
+
+This little application stores a list of tasks.  Call it a Honey-Do list.  Whatever.
 
 Perform the following steps to setup your environment...
 
@@ -86,14 +88,16 @@ Perform the following steps to setup your environment...
 2. In the agent build/staging dir, create a Python3 virtual environment (Python 2 was not tested.)
 3. pip install protobuf
 4. Set your PYTHONPATH as needed
-5. Run: python app.py
-6. In your browser, paste in this URL and hit Enter:  http://127.0.0.1:5000/todo/api/v1.0/tasks/2
+5. Run: > flask run (python app.py doesn't seem to work consistently...)
+6. In your browser, paste in this URL and hit Enter:  http://127.0.0.1:5000/todo/api/v1.0/tasks
+7. If you want to POST some data type in this command: > curl -i -H "Content-Type: application/json" -X POST -d '{"title":"Some task title"}' http://localhost:5000/todo/api/v1.0/tasks
+
 
 You should see a file named agent_output.txt in your working directory.
 
 # Using the agent
 
-In your Flask application, do this:
+In your Flask application, add this:
 ````
 from flask_exagent import FlaskExagent        # add this import
 
