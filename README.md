@@ -8,8 +8,6 @@ https://my.cdash.org/index.php?project=Challenge
 # Overview
 This project is an unsolicited entry for an employment code challenge I found online.  While I am not applying for the job (yet), the challenge looked interesting enough to do simply to learn something new... in this case actually learning how to implement a REST API, Flask, and integrate it with other programming languages.  Also, learn how to integrate with Travis-CI, codecov.io, and CDash.
 
-Most of these things I did not know before starting this project!  I'm a C++ man.  This other stuff... all new to me.
-
 # Agent
 This project is an Application Performance Monitoring (APM) middleware library for Python.  It will preprocess both the request and response side of a REST API exchange, and create various telemetry about the exchange.  This data will be stored in a CSV file.
 
